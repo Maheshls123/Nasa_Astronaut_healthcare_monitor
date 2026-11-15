@@ -124,6 +124,7 @@ const AstroApp = {
   pvtInterval: null,
   isCalibrating: false,
   assistantMessages: [],
+  assistantError: '',
   assistantAvailable: false,
   assistantBusy: false,
   nasaDatasets: [],
@@ -761,6 +762,7 @@ function initHealthChat() {
   });
   if (clearButton) clearButton.addEventListener('click', () => {
     AstroApp.assistantMessages = [];
+    AstroApp.assistantError = '';
     renderHealthChat();
   });
   if (suggestions) suggestions.addEventListener('click', event => {
@@ -831,6 +833,9 @@ function renderHealthChat() {
     <div class="flex items-start gap-2" aria-label="AstroAI is responding">
       <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary-container/20 text-primary"><span class="material-symbols-outlined text-[16px]">smart_toy</span></div>
       <div class="rounded-2xl rounded-tl-sm bg-surface-container-high px-3.5 py-2.5 text-sm text-on-surface-variant">Thinking…</div>
+    </div>` : '') + (AstroApp.assistantError ? `
+    <div role="alert" class="ml-9 max-w-[90%] rounded-lg border border-error/30 bg-error-container/15 px-3.5 py-2.5 text-sm text-error">
+      <strong>AstroAI couldn't respond.</strong> ${escapeHTML(AstroApp.assistantError)}
     </div>` : '');
   stream.scrollTop = stream.scrollHeight;
 }
@@ -854,6 +859,7 @@ async function sendHealthChatMessage() {
 
   AstroApp.assistantMessages.push({ role: 'user', content });
   AstroApp.assistantMessages = AstroApp.assistantMessages.slice(-30);
+  AstroApp.assistantError = '';
   input.value = '';
   AstroApp.assistantBusy = true;
   updateHealthChatControls();
@@ -873,7 +879,8 @@ async function sendHealthChatMessage() {
     AstroApp.assistantMessages = AstroApp.assistantMessages.slice(-30);
     if (status) status.textContent = 'Connected to Groq';
   } catch (error) {
-    if (status) status.textContent = error.message || 'Could not get a reply. Please try again.';
+    AstroApp.assistantError = error instanceof Error ? error.message : 'Could not get a reply. Please try again.';
+    if (status) status.textContent = 'AstroAI could not respond. See the chat for details.';
   } finally {
     AstroApp.assistantBusy = false;
     updateHealthChatControls();
