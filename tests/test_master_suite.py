@@ -428,9 +428,9 @@ class TestASTRACoreArchitecture(unittest.TestCase):
 
         request = Request({"type": "http", "client": ("127.0.0.1", 8001)})
         test_cases = (
-            ({"cf-ray": "7ed123abc-BOM"}, "Cloudflare Ray ID: 7ed123abc-BOM."),
-            ({}, "No Cloudflare Ray ID was provided"),
-            ({"cf-ray": "invalid ray id"}, "No Cloudflare Ray ID was provided")
+            ({"cf-ray": "7ed123abc-BOM"}, "Provider request reference: 7ed123abc-BOM."),
+            ({}, "No provider request reference was returned"),
+            ({"cf-ray": "invalid ray id"}, "No provider request reference was returned")
         )
         for headers, expected_detail in test_cases:
             with self.subTest(headers=headers):
@@ -447,7 +447,8 @@ class TestASTRACoreArchitecture(unittest.TestCase):
                             chat_with_health_assistant(request, {"messages": [{"role": "user", "content": "Hello"}]})
 
                 self.assertEqual(blocked.exception.status_code, 502)
-                self.assertIn("Cloudflare 1010", blocked.exception.detail)
+                self.assertIn("HTTP 403, access code 1010", blocked.exception.detail)
+                self.assertNotIn("Cloudflare", blocked.exception.detail)
                 self.assertIn(expected_detail, blocked.exception.detail)
                 self.assertNotIn("test-key", blocked.exception.detail)
 
