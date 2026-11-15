@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <meta content="mobile_tab" name="shell-type"/>
+  <title>AstroHealth — Autonomous Astronaut Health &amp; Emergency System</title>
+  <meta name="theme-color" content="#0d1320">
+  
+  <style>
+    @layer base {
+      html, body {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        background-color: #0d1320;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link crossorigin="" rel="preconnect" href="https://fonts.gstatic.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error": "#ffb4ab",
+            "on-primary-container": "#00626e",
+            "secondary-container": "#05e777",
+            "on-tertiary-fixed-variant": "#6c3a00",
+            "primary-container": "#00e5ff",
+            "secondary": "#7dffa2",
+            "surface-container-high": "#242a38",
+            "on-tertiary-fixed": "#2e1500",
+            "on-secondary-fixed-variant": "#005226",
+            "tertiary-container": "#ffc594",
+            "on-primary": "#00363d",
+            "on-background": "#dde2f5",
+            "tertiary-fixed": "#ffdcc1",
+            "surface-container-low": "#161b29",
+            "outline": "#849396",
+            "surface-container-highest": "#2f3543",
+            "primary": "#c3f5ff",
+            "secondary-fixed-dim": "#00e475",
+            "on-error-container": "#ffdad6",
+            "primary-fixed": "#9cf0ff",
+            "surface-container": "#1a1f2d",
+            "on-primary-fixed": "#001f24",
+            "on-surface-variant": "#bac9cc",
+            "surface-bright": "#333948",
+            "outline-variant": "#3b494c",
+            "tertiary-fixed-dim": "#ffb778",
+            "inverse-primary": "#006875",
+            "tertiary": "#ffe9d9",
+            "on-secondary": "#003918",
+            "on-tertiary": "#4c2700",
+            "surface-dim": "#0d1320",
+            "secondary-fixed": "#62ff96",
+            "surface-variant": "#2f3543",
+            "surface-container-lowest": "#080e1b",
+            "on-surface": "#dde2f5",
+            "on-error": "#690005",
+            "surface": "#0d1320",
+            "primary-fixed-dim": "#00daf3",
+            "on-primary-fixed-variant": "#004f58",
+            "background": "#0d1320",
+            "inverse-on-surface": "#2a303f",
+            "on-secondary-container": "#00622e",
+            "surface-tint": "#00daf3",
+            "on-secondary-fixed": "#00210b",
+            "error-container": "#93000a",
+            "on-tertiary-container": "#864a00",
+            "inverse-surface": "#dde2f5"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-2xl": "3rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            "gutter-tablet": "1.5rem",
+            "margin-desktop": "2.5rem",
+            "gutter": "1rem",
+            "margin-tablet": "1.5rem",
+            "gutter-desktop": "2rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "margin": "1rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "headline-xl": ["Space Grotesk", "sans-serif"],
+            "headline-xl-mobile": ["Space Grotesk", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            "label-sm": ["Space Grotesk", "monospace"],
+            "label-md": ["Space Grotesk", "monospace"],
+            "metric-display-mobile": ["Space Grotesk", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "metric-display": ["Space Grotesk", "sans-serif"],
+            "headline-lg": ["Space Grotesk", "sans-serif"],
+            "headline-md": ["Space Grotesk", "sans-serif"],
+            "label-lg": ["Space Grotesk", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "metric-display-mobile": ["34px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "metric-display": ["44px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-md": ["20px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "400" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col font-body-sm selection:bg-primary-container selection:text-on-primary">
+
+  <!-- TOP AVIONICS NAVIGATION HEADER -->
+  <header class="fixed top-0 w-full z-[60] pt-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.4)] border-b border-surface-container-high/60">
+    <div class="h-20 px-4 max-w-7xl mx-auto flex items-center justify-between gap-3">
+      <!-- Brand & Mission Badge -->
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-container to-blue-600 flex items-center justify-center text-surface-container-lowest font-headline-md font-bold shadow-[0_0_14px_rgba(0,229,255,0.5)] shrink-0">
+          A
+        </div>
+        <div class="flex flex-col min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="font-headline-md text-headline-md text-primary tracking-tight truncate">AstroHealth</span>
+            <span class="px-1.5 py-0.5 rounded bg-primary-container/20 text-primary font-label-sm text-label-sm uppercase tracking-wider font-semibold border border-primary-container/30">EVA-SYNC</span>
+          </div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant truncate">ISS Expedition 72 • DSN Local Gateway</span>
+        </div>
+      </div>
+
+      <!-- Live Link Status, Backend Decoupled State & Crew Switcher -->
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- Backend API Connection Indicator (Decoupled Client) -->
+        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high/80 border border-outline-variant/40" id="backend-status-pill">
+          <span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_6px_#7dffa2]" id="backend-dot"></span>
+          <span class="font-label-sm text-[10px] text-secondary font-bold uppercase tracking-wider" id="backend-status-text">API (Port 8000)</span>
+        </div>
+
+        <div class="hidden sm:flex flex-col items-end px-3 py-1 rounded-full bg-surface-container-high/60 border border-outline-variant/40">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_rgba(125,255,162,0.8)]" id="uplink-dot"></span>
+            <span class="font-label-sm text-label-sm text-secondary tracking-wider uppercase font-semibold" id="uplink-status">Signal Strong</span>
+          </div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant" id="sync-latency">DSN 0.28s</span>
+        </div>
+
+        <!-- Role Select Capsule -->
+        <div class="hidden md:flex items-center px-2.5 py-1 rounded-full bg-surface-container-high/80 border border-outline-variant/40">
+          <span class="text-[10px] text-on-surface-variant font-label-sm uppercase mr-1.5">ROLE:</span>
+          <select id="role-select" class="bg-transparent text-primary text-[11px] font-label-sm font-semibold outline-none cursor-pointer">
+            <option value="FLIGHT_SURGEON">Flight Surgeon (Houston)</option>
+            <option value="GROUND_SCIENTIST">Ground Scientist (NASA)</option>
+            <option value="ASTRONAUT">Astronaut (Crew)</option>
+            <option value="BIOMEDICAL_ENGINEER">Biomedical Engineer (BME)</option>
+            <option value="MISSION_CONTROL">Mission Control</option>
+          </select>
+        </div>
+
+        <!-- Astronaut Switcher -->
+        <div class="relative">
+          <button id="astro-menu-btn" aria-label="Switch profile" class="relative flex items-center justify-center p-1 rounded-full bg-surface-container-high border border-outline-variant hover:border-primary-container transition-colors" type="button">
+            <div class="relative flex items-center justify-center">
+              <div class="w-8 h-8 rounded-full bg-primary-container/30 text-primary font-headline-md text-[13px] flex items-center justify-center font-bold border border-primary-container/40" id="header-avatar-initials">
+                RV
+              </div>
+              <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
+            </div>
+            <span class="material-symbols-outlined text-[16px] text-on-surface-variant ml-1 mr-0.5">expand_more</span>
+          </button>
+          
+          <!-- Dropdown menu -->
+          <div id="astro-dropdown" class="hidden absolute right-0 mt-2 w-56 rounded-xl bg-surface-container-high border border-outline-variant shadow-2xl p-2 z-50">
+            <div class="text-[10px] uppercase font-label-sm text-on-surface-variant px-2.5 py-1 font-semibold">Select Person Profile</div>
+            <div id="crew-list-options" class="flex flex-col gap-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <main class="flex-1 flex flex-col relative w-full pt-20 pb-28 px-4 max-w-7xl mx-auto bg-surface">
+    
+    <!-- DYNAMIC TAB PANELS CONTAINER -->
+    <div id="view-crew-overview" class="tab-view flex flex-col w-full pb-6 space-y-4">
+      <section class="rounded-2xl bg-gradient-to-br from-surface-container-high to-surface-container p-5 sm:p-7 border border-primary-container/30 shadow-lg relative overflow-hidden">
+        <div class="absolute -right-10 -top-16 w-56 h-56 rounded-full bg-primary-container/5 blur-3xl pointer-events-none"></div>
+        <div class="relative flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="material-symbols-outlined text-primary-container">satellite_alt</span>
+              <span class="font-label-sm text-primary-container uppercase tracking-[0.18em]">Mission health overview</span>
+            </div>
+            <h1 class="font-headline-xl text-3xl sm:text-4xl text-on-surface font-bold tracking-tight">Crew monitoring</h1>
+            <p class="text-sm text-on-surface-variant mt-2 max-w-2xl">A crew-wide view of incoming astronaut telemetry and system-generated flags.</p>
+          </div>
+          <div class="flex flex-col sm:items-end gap-1">
+            <span id="overview-data-source" class="inline-flex items-center gap-2 rounded-full bg-surface-container-low px-3 py-1.5 text-[10px] font-label-sm uppercase tracking-wider text-secondary border border-secondary/20">
+              <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+              Standalone simulation
+            </span>
+            <span id="overview-last-updated" class="text-[11px] text-on-surface-variant">Waiting for telemetry</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="rounded-2xl bg-surface-container p-4 sm:p-5 border border-outline-variant/30">
+        <div class="mb-4">
+          <h2 class="font-headline-md text-xl text-on-surface font-bold">Mission personnel</h2>
+          <p class="text-xs text-on-surface-variant mt-1">Five people · one assigned role each</p>
+        </div>
+        <div id="mission-personnel-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-3"></div>
+      </section>
+
+      <section class="grid grid-cols-2 lg:grid-cols-4 gap-3" aria-label="Crew health summary">
+        <article class="rounded-xl bg-surface-container p-4 border border-outline-variant/30">
+          <span class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Crew monitored</span>
+          <div class="mt-2 flex items-baseline gap-2"><strong id="overview-crew-count" class="font-headline-xl text-3xl text-on-surface">—</strong><span class="text-xs text-on-surface-variant">astronauts</span></div>
+        </article>
+        <article class="rounded-xl bg-surface-container p-4 border border-outline-variant/30">
+          <span class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Nominal status</span>
+          <div class="mt-2 flex items-baseline gap-2"><strong id="overview-nominal-count" class="font-headline-xl text-3xl text-secondary">—</strong><span class="text-xs text-on-surface-variant">crew</span></div>
+        </article>
+        <article class="rounded-xl bg-surface-container p-4 border border-outline-variant/30">
+          <span class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Needs attention</span>
+          <div class="mt-2 flex items-baseline gap-2"><strong id="overview-attention-count" class="font-headline-xl text-3xl text-tertiary-fixed-dim">—</strong><span class="text-xs text-on-surface-variant">system flags</span></div>
+        </article>
+        <article class="rounded-xl bg-surface-container p-4 border border-outline-variant/30">
+          <span class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Signal quality</span>
+          <div class="mt-2 flex items-baseline gap-2"><strong id="overview-signal-quality" class="font-headline-xl text-3xl text-primary">—</strong><span class="text-xs text-on-surface-variant">average SQI</span></div>
+        </article>
+      </section>
+
+      <section class="rounded-xl border border-tertiary-container/30 bg-tertiary-container/10 px-4 py-3 flex items-start gap-3">
+        <span class="material-symbols-outlined text-tertiary-fixed-dim mt-0.5">info</span>
+        <p class="text-xs leading-relaxed text-on-surface-variant"><strong class="text-tertiary-fixed-dim">Prototype monitor:</strong> Telemetry and automated flags are for demonstration and research only. This dashboard is not flight-certified or clinically validated and must not be used for medical decisions.</p>
+      </section>
+
+      <section class="rounded-2xl border border-primary-container/30 bg-[#0d1729] p-4 sm:p-5 shadow-[0_0_30px_rgba(67,211,255,0.12)] overflow-hidden">
+        <div class="flex items-center justify-between gap-3 mb-4">
+          <h2 class="font-headline-xl text-2xl sm:text-3xl text-primary tracking-tight">HOW ASTROGUARD AI WORKS</h2>
+          <span class="rounded-full border border-primary-container/30 bg-primary-container/10 px-2.5 py-1 text-[10px] font-label-sm uppercase tracking-[0.2em] text-primary">Live Monitoring</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-3">
+          <div class="rounded-xl border border-primary-container/40 bg-surface-container-low p-3 min-h-[180px]">
+            <div class="mb-3 flex items-center justify-between">
+              <span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">01</span>
+              <span class="material-symbols-outlined text-[18px] text-primary-container">monitor_heart</span>
+            </div>
+            <h3 class="text-sm font-headline-md text-on-surface mb-2">Astronaut health data</h3>
+            <div class="space-y-2 text-[11px] leading-relaxed text-on-surface-variant">
+              <p>Continuous heart rate, oxygen, blood pressure, temperature, radiation, and sleep telemetry streams into the station monitor.</p>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-primary-container/40 bg-surface-container-low p-3 min-h-[180px]">
+            <div class="mb-3 flex items-center justify-between">
+              <span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">02</span>
+              <span class="material-symbols-outlined text-[18px] text-primary-container">dataset</span>
+            </div>
+            <h3 class="text-sm font-headline-md text-on-surface mb-2">Data collection</h3>
+            <div class="space-y-2 text-[11px] leading-relaxed text-on-surface-variant">
+              <p>Wearable sensors, cabin systems, and biomedical gateways validate signal quality before analysis begins.</p>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-primary-container/40 bg-surface-container-low p-3 min-h-[180px]">
+            <div class="mb-3 flex items-center justify-between">
+              <span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">03</span>
+              <span class="material-symbols-outlined text-[18px] text-primary-container">code</span>
+            </div>
+            <h3 class="text-sm font-headline-md text-on-surface mb-2">Python backend</h3>
+            <div class="space-y-2 text-[11px] leading-relaxed text-on-surface-variant">
+              <p>ASTRA ingests telemetry, normalizes labels, checks quality, and prepares it for model inference and rules-based review.</p>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-primary-container/40 bg-surface-container-low p-3 min-h-[180px]">
+            <div class="mb-3 flex items-center justify-between">
+              <span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">04</span>
+              <span class="material-symbols-outlined text-[18px] text-primary-container">psychology</span>
+            </div>
+            <h3 class="text-sm font-headline-md text-on-surface mb-2">AI risk analysis</h3>
+            <div class="space-y-2 text-[11px] leading-relaxed text-on-surface-variant">
+              <p>Multisensor anomaly detection compares each astronaut to baseline patterns, trend shifts, and mission context.</p>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-primary-container/40 bg-surface-container-low p-3 min-h-[180px]">
+            <div class="mb-3 flex items-center justify-between">
+              <span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">05</span>
+              <span class="material-symbols-outlined text-[18px] text-primary-container">notification_important</span>
+            </div>
+            <h3 class="text-sm font-headline-md text-on-surface mb-2">Emergency alerts</h3>
+            <div class="space-y-2 text-[11px] leading-relaxed text-on-surface-variant">
+              <p>Critical trends trigger emergency workflows, checklist prompts, and synchronized mission-control notifications.</p>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-primary-container/40 bg-surface-container-low p-3 min-h-[180px]">
+            <div class="mb-3 flex items-center justify-between">
+              <span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">06</span>
+              <span class="material-symbols-outlined text-[18px] text-primary-container">support_agent</span>
+            </div>
+            <h3 class="text-sm font-headline-md text-on-surface mb-2">Mission control</h3>
+            <div class="space-y-2 text-[11px] leading-relaxed text-on-surface-variant">
+              <p>Flight surgeons and ground scientists review alert quality, trends, and response status without replacing medical judgment.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="rounded-2xl bg-surface-container p-4 sm:p-5 border border-outline-variant/30">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <h2 class="font-headline-md text-xl text-on-surface font-bold">Crew health</h2>
+            <p class="text-xs text-on-surface-variant mt-1">Current readings by astronaut · select a profile for detailed telemetry</p>
+          </div>
+          <label class="flex items-center gap-2 text-[10px] font-label-sm text-on-surface-variant uppercase">
+            Show
+            <select id="crew-overview-filter" class="rounded-lg bg-surface-container-low border border-outline-variant/50 px-3 py-2 text-xs text-on-surface normal-case outline-none focus:border-primary-container">
+              <option value="all">All crew</option>
+              <option value="attention">Needs attention</option>
+              <option value="nominal">Nominal</option>
+            </select>
+          </label>
+        </div>
+        <div id="crew-health-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3"></div>
+      </section>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <section class="lg:col-span-2 rounded-2xl bg-surface-container p-4 sm:p-5 border border-outline-variant/30">
+          <div class="flex items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 class="font-headline-md text-xl text-on-surface font-bold">Telemetry flags</h2>
+              <p class="text-xs text-on-surface-variant mt-1">Automated system findings · review in context</p>
+            </div>
+            <span id="overview-alert-count" class="rounded-full bg-surface-container-low px-2.5 py-1 text-[10px] font-label-sm text-on-surface-variant">0 ACTIVE</span>
+          </div>
+          <div id="crew-alerts-list" class="space-y-2"></div>
+        </section>
+
+        <section class="rounded-2xl bg-surface-container p-4 sm:p-5 border border-outline-variant/30">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="material-symbols-outlined text-primary-container">air</span>
+            <div>
+              <h2 class="font-headline-md text-lg text-on-surface font-bold">Cabin environment</h2>
+              <p class="text-[10px] text-on-surface-variant">Shared station sensors</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="rounded-lg bg-surface-container-low p-3"><span class="block text-[10px] uppercase text-on-surface-variant">O₂</span><strong id="overview-env-o2" class="block text-lg text-primary mt-1">—</strong><span class="text-[10px] text-on-surface-variant">%</span></div>
+            <div class="rounded-lg bg-surface-container-low p-3"><span class="block text-[10px] uppercase text-on-surface-variant">CO₂</span><strong id="overview-env-co2" class="block text-lg text-primary mt-1">—</strong><span class="text-[10px] text-on-surface-variant">mmHg</span></div>
+            <div class="rounded-lg bg-surface-container-low p-3"><span class="block text-[10px] uppercase text-on-surface-variant">Pressure</span><strong id="overview-env-pressure" class="block text-lg text-primary mt-1">—</strong><span class="text-[10px] text-on-surface-variant">kPa</span></div>
+            <div class="rounded-lg bg-surface-container-low p-3"><span class="block text-[10px] uppercase text-on-surface-variant">Radiation</span><strong id="overview-env-radiation" class="block text-lg text-primary mt-1">—</strong><span class="text-[10px] text-on-surface-variant">µSv/h</span></div>
+          </div>
+          <div class="mt-3 flex items-center justify-between border-t border-outline-variant/30 pt-3">
+            <span class="text-[10px] text-on-surface-variant uppercase">Solar particle event</span>
+            <span id="overview-spe-status" class="rounded-full bg-secondary-container/15 px-2 py-1 text-[10px] font-label-sm text-secondary">INACTIVE</span>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div id="view-vitals" class="tab-view hidden flex-col w-full pb-6 space-y-4">
+      
+      <!-- 1. Emergency Siren Beacon Bar -->
+      <section class="w-full rounded-xl bg-error-container/25 p-3.5 shadow-lg border border-error/20 relative overflow-hidden">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <span class="relative flex h-3 w-3 shrink-0">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-error shadow-[0_0_8px_#ffb4ab]"></span>
+            </span>
+            <div class="flex flex-col min-w-0">
+              <div class="flex items-center gap-1.5">
+                <span class="font-label-md text-label-md uppercase tracking-wider text-error font-bold truncate">EMERGENCY SIREN READY</span>
+                <span class="px-1.5 py-0.5 rounded-full bg-error/20 text-error font-label-sm text-label-sm font-semibold shrink-0">PRIORITY 1</span>
+              </div>
+              <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Instant autonomous alert to Houston flight surgeons &amp; station crew</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button aria-label="Test Siren Alarm" class="px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-sm text-label-sm font-semibold active:scale-95" id="siren-test-btn" type="button">
+              TEST
+            </button>
+            <button aria-label="Broadcast Emergency Siren" class="px-3 py-1.5 rounded-lg bg-error text-on-error font-label-md text-label-md font-bold tracking-wide shadow-[0_0_12px_rgba(255,180,171,0.5)] active:scale-95 transition-transform flex items-center gap-1" id="siren-trigger-btn" type="button">
+              <span class="material-symbols-outlined text-[16px]">campaign</span>
+              SIREN
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Astronaut Crew Profile Strip -->
+      <section class="w-full rounded-xl bg-surface-container p-3.5 shadow-md border border-outline-variant/30 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="relative shrink-0">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-900 to-blue-700 flex items-center justify-center text-primary font-headline-lg font-bold shadow-md border border-primary-container/40" id="active-profile-avatar">
+              SC
+            </div>
+            <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-secondary shadow-[0_0_6px_#7dffa2]"></span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <div class="flex items-center gap-2">
+              <h2 class="font-headline-md text-headline-md text-primary font-bold truncate" id="active-astro-name">Dr. Sarah Chen</h2>
+              <span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm text-label-sm uppercase font-semibold" id="active-astro-status">Nominal</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant truncate" id="active-astro-role">ISS Expedition 72 • Flight Engineer 2</p>
+          </div>
+        </div>
+        <div class="flex flex-col items-end shrink-0 pl-2">
+          <div class="flex items-center gap-1 text-secondary">
+            <span class="material-symbols-outlined text-[15px] animate-pulse">sensors</span>
+            <span class="font-label-sm text-label-sm font-bold tracking-wider" id="active-sqi-tag">LIVE 0.28s</span>
+          </div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant">Houston Link</span>
+        </div>
+      </section>
+
+      <!-- 3. Main Vitals Bento Grid -->
+      <div class="w-full grid grid-cols-1 gap-3">
+        
+        <!-- 3.1 Heart Rhythm & Pulse (Featured Glance Card) -->
+        <article class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30 flex flex-col gap-3 relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-error-container/40 flex items-center justify-center text-error">
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+              </div>
+              <div>
+                <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase block">HEART RHYTHM &amp; PULSE</span>
+                <span class="font-headline-md text-headline-md text-on-surface font-bold" id="cardiac-rhythm-desc">Steady &amp; Calm</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <!-- Switcher between Live ECG, BPM Trend, and Dual View -->
+              <div class="flex bg-surface-container-high rounded-lg p-0.5 border border-outline-variant/40 text-[10px] font-label-sm">
+                <button id="btn-toggle-ecg" class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-bold cursor-pointer transition-all" onclick="toggleCardiacView('ecg')">Lead II ECG</button>
+                <button id="btn-toggle-bpm" class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface cursor-pointer transition-all" onclick="toggleCardiacView('bpm')">BPM Trend</button>
+                <button id="btn-toggle-dual" class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface cursor-pointer transition-all" onclick="toggleCardiacView('dual')">Dual View</button>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-secondary-container/20 text-secondary font-label-sm text-label-sm font-bold tracking-wide flex items-center gap-1 border border-secondary/30" id="cardiac-status-badge">
+                <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                OPTIMAL
+              </span>
+            </div>
+          </div>
+
+          <div class="flex items-baseline justify-between mt-1">
+            <div class="flex items-baseline gap-1.5">
+              <span class="font-metric-display-mobile text-metric-display-mobile text-primary font-bold" id="bpm-val">71</span>
+              <span class="font-label-lg text-label-lg text-on-surface-variant">BPM</span>
+            </div>
+            <div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+              <span>Baseline: <strong class="text-on-surface" id="baseline-bpm">68</strong></span>
+              <span>•</span>
+              <span>HRV (SDNN): <strong class="text-on-surface" id="hrv-val">62 ms</strong></span>
+              <span>•</span>
+              <span>24h Min: <strong class="text-on-surface">58</strong></span>
+              <span>•</span>
+              <span>Max: <strong class="text-on-surface">132</strong></span>
+            </div>
+          </div>
+
+          <!-- Dynamic 60 FPS Canvas Oscilloscope (ECG Lead II) -->
+          <div id="cardiac-ecg-container" class="w-full h-16 bg-surface-container-low rounded-lg p-1 flex items-center relative overflow-hidden border border-surface-container-high">
+            <canvas id="ecgCanvas" class="w-full h-full block rounded"></canvas>
+          </div>
+
+          <!-- Rolling Heart Rate (BPM) Trend Graph Canvas -->
+          <div id="cardiac-bpm-container" class="hidden w-full h-24 bg-surface-container-low rounded-lg p-1 flex flex-col justify-between relative overflow-hidden border border-surface-container-high">
+            <div class="flex justify-between items-center px-1 text-[9px] font-label-sm text-on-surface-variant">
+              <span>ROLLING 60-SEC HEART RATE HISTORY</span>
+              <span>NOMINAL BAND: 60 - 80 BPM</span>
+            </div>
+            <canvas id="bpmTrendCanvas" class="w-full h-20 block rounded"></canvas>
+          </div>
+
+          <!-- Interactive Rhythm Injector Controls for Demonstration & Testing -->
+          <div class="flex flex-wrap items-center justify-between gap-1.5 pt-1.5 border-t border-surface-container-high/40 text-[11px]">
+            <div class="flex items-center gap-1.5">
+              <span class="font-label-sm text-[10px] text-on-surface-variant uppercase">Rhythm Sim:</span>
+              <button onclick="simulateCardiacRhythm(68, 'Steady & Calm (Resting)')" class="px-2 py-0.5 rounded bg-surface-container-low hover:bg-surface-container-high text-secondary border border-secondary/20 font-label-sm text-[10px] cursor-pointer">
+                Resting (68 BPM)
+              </button>
+              <button onclick="simulateCardiacRhythm(84, 'Active Workload')" class="px-2 py-0.5 rounded bg-surface-container-low hover:bg-surface-container-high text-primary border border-primary/20 font-label-sm text-[10px] cursor-pointer">
+                Active (84 BPM)
+              </button>
+              <button onclick="simulateCardiacRhythm(138, 'Inappropriate Tachycardia')" class="px-2 py-0.5 rounded bg-surface-container-low hover:bg-surface-container-high text-error border border-error/20 font-label-sm text-[10px] cursor-pointer">
+                Tachycardia (138 BPM)
+              </button>
+            </div>
+            <span class="font-label-sm text-[10px] text-on-surface-variant hidden sm:inline">Lead II • 60 FPS Sweep</span>
+          </div>
+
+          <div class="h-0.5 w-full bg-secondary-container/80 rounded-full"></div>
+        </article>
+
+        <!-- 3.2 Two-Column Pair: Blood Oxygen & Blood Pressure -->
+        <div class="grid grid-cols-2 gap-3 w-full">
+          <!-- Blood Oxygen -->
+          <article class="w-full rounded-xl bg-surface-container p-3.5 shadow-md border border-outline-variant/30 flex flex-col justify-between gap-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">BLOOD OXYGEN</span>
+              <span class="material-symbols-outlined text-[18px] text-primary-container">air</span>
+            </div>
+            <div>
+              <div class="flex items-baseline gap-1">
+                <span class="font-metric-display-mobile text-metric-display-mobile text-primary font-bold" id="spo2-val">99</span>
+                <span class="font-label-md text-label-md text-on-surface-variant">%</span>
+              </div>
+              <span class="font-label-sm text-label-sm text-secondary font-semibold block" id="spo2-desc">Healthy Pure Air</span>
+            </div>
+            <!-- Progress Bar Indicator -->
+            <div class="w-full flex flex-col gap-1">
+              <div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+                <div class="h-full bg-primary-container rounded-full transition-all duration-500" id="spo2-bar" style="width: 99%"></div>
+              </div>
+              <div class="flex justify-between items-center text-on-surface-variant font-label-sm text-[9px]">
+                <span>Safe Zone &gt;95%</span>
+                <span class="text-secondary font-bold">SpO2 Optimal</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blood Pressure -->
+          <article class="w-full rounded-xl bg-surface-container p-3.5 shadow-md border border-outline-variant/30 flex flex-col justify-between gap-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">BLOOD PRESSURE</span>
+              <span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">speed</span>
+            </div>
+            <div>
+              <div class="flex items-baseline gap-1">
+                <span class="font-headline-lg text-headline-lg text-primary font-bold" id="bp-val">118/76</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant">mmHg</span>
+              </div>
+              <span class="font-label-sm text-label-sm text-secondary font-semibold block" id="bp-desc">Optimal Blood Flow</span>
+            </div>
+            <div class="rounded-lg bg-surface-container-low p-1.5 text-center border border-surface-container-high/40">
+              <span class="font-label-sm text-label-sm text-on-surface-variant text-[10px] block" id="bp-pulse-pressure">Pulse Pressure: 42 mmHg</span>
+            </div>
+          </article>
+        </div>
+
+        <!-- 3.3 Core Body Warmth -->
+        <article class="w-full rounded-xl bg-surface-container p-3.5 shadow-md border border-outline-variant/30 flex flex-col gap-2.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[20px] text-tertiary-fixed-dim">thermostat</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">CORE BODY WARMTH</span>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm text-label-sm font-semibold border border-secondary/30" id="temp-badge">NO FEVER</span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <div class="flex items-baseline gap-2">
+              <span class="font-headline-lg text-headline-lg text-on-surface font-bold" id="temp-f-val">98.4°F</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant" id="temp-c-val">(36.9°C)</span>
+            </div>
+            <span class="font-label-md text-label-md text-secondary font-semibold">Just Right &amp; Balanced</span>
+          </div>
+          <!-- Segmented Temperature Spectrum Indicator -->
+          <div class="w-full flex items-center gap-1.5 h-2">
+            <div class="flex-1 h-full rounded-full bg-surface-container-high"></div>
+            <div class="flex-1 h-full rounded-full bg-primary-container/40"></div>
+            <div class="flex-1 h-full rounded-full bg-secondary shadow-[0_0_6px_#7dffa2]"></div>
+            <div class="flex-1 h-full rounded-full bg-surface-container-high"></div>
+          </div>
+        </article>
+
+        <!-- 3.4 Two-Column Pair: Brain/Eye SANS & Cosmic Radiation -->
+        <div class="grid grid-cols-2 gap-3 w-full">
+          <!-- Microgravity Brain & Eye Pressure (SANS) -->
+          <article class="w-full rounded-xl bg-surface-container p-3.5 shadow-md border border-outline-variant/30 flex flex-col justify-between gap-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">BRAIN &amp; EYE FLUID</span>
+              <span class="material-symbols-outlined text-[18px] text-primary-container">visibility</span>
+            </div>
+            <div>
+              <span class="font-headline-md text-headline-md text-on-surface font-bold block" id="sans-risk-title">Normal Low</span>
+              <span class="font-body-sm text-body-sm text-secondary text-[12px] font-semibold block">SANS Risk: Very Low</span>
+            </div>
+            <div class="rounded-lg bg-surface-container-low p-1.5 text-center border border-surface-container-high/40">
+              <span class="font-label-sm text-label-sm text-on-surface-variant text-[10px] block">Cranial Shift Neutral</span>
+            </div>
+          </article>
+
+          <!-- Space Radiation Cumulative Exposure -->
+          <article class="w-full rounded-xl bg-surface-container p-3.5 shadow-md border border-outline-variant/30 flex flex-col justify-between gap-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">SPACE RADIATION</span>
+              <span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">blur_on</span>
+            </div>
+            <div>
+              <div class="flex items-baseline gap-1">
+                <span class="font-headline-lg text-headline-lg text-primary font-bold" id="radiation-rate-val">0.42</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant">mSv/day</span>
+              </div>
+              <span class="font-label-sm text-label-sm text-secondary font-semibold block" id="radiation-status-text">Safe Green Zone</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
+              <div class="h-full bg-secondary rounded-full" id="radiation-progress-bar" style="width: 22%"></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- 3.5 Breathing Rate -->
+        <article class="w-full rounded-xl bg-surface-container p-3.5 shadow-md border border-outline-variant/30 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container">
+              <span class="material-symbols-outlined text-[20px]">airwave</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">BREATHING RATE</span>
+              <span class="font-headline-md text-headline-md text-on-surface font-bold">
+                <span id="resp-rate-val">14</span> <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">Breaths / min</span>
+              </span>
+            </div>
+          </div>
+          <div class="px-2.5 py-1 rounded-full bg-secondary-container/20 text-secondary font-label-sm text-label-sm font-semibold tracking-wide border border-secondary/30">
+            Relaxed Rhythm
+          </div>
+        </article>
+
+        <!-- 3.6 Advanced Aerospace Biomedical Intelligence Panel -->
+        <article class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-primary-container/30 flex flex-col gap-3 relative">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[20px] text-primary-container">vital_signs</span>
+              <span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">ADVANCED BIOMEDICAL &amp; HEMODYNAMIC METRICS</span>
+            </div>
+            <button id="btn-toggle-adv-metrics" onclick="toggleAdvancedMetrics()" class="text-xs font-label-sm text-primary hover:text-white flex items-center gap-1 cursor-pointer">
+              <span id="adv-metrics-label">Show Detailed Metrics</span>
+              <span class="material-symbols-outlined text-[16px]" id="adv-metrics-icon">expand_more</span>
+            </button>
+          </div>
+
+          <div id="adv-metrics-panel" class="hidden grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 border-t border-surface-container-high/60">
+            <!-- Cardiac Output -->
+            <div class="bg-surface-container-low p-2.5 rounded-lg border border-surface-container-high/40">
+              <span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Cardiac Output (CO)</span>
+              <span class="font-headline-md text-primary font-bold" id="adv-cardiac-output">5.25 L/min</span>
+              <span class="font-label-sm text-[9px] text-secondary block mt-0.5">Normodynamic Range</span>
+            </div>
+            <!-- Stroke Volume -->
+            <div class="bg-surface-container-low p-2.5 rounded-lg border border-surface-container-high/40">
+              <span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Stroke Volume (SV)</span>
+              <span class="font-headline-md text-on-surface font-bold" id="adv-stroke-volume">74 mL/beat</span>
+              <span class="font-label-sm text-[9px] text-on-surface-variant block mt-0.5">Ventricular Ejection</span>
+            </div>
+            <!-- Mean Arterial Pressure -->
+            <div class="bg-surface-container-low p-2.5 rounded-lg border border-surface-container-high/40">
+              <span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Mean Arterial (MAP)</span>
+              <span class="font-headline-md text-primary font-bold" id="adv-map">90.0 mmHg</span>
+              <span class="font-label-sm text-[9px] text-secondary block mt-0.5">Organ Perfusion OK</span>
+            </div>
+            <!-- Systemic Vascular Resistance -->
+            <div class="bg-surface-container-low p-2.5 rounded-lg border border-surface-container-high/40">
+              <span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Vascular Resistance</span>
+              <span class="font-headline-md text-on-surface font-bold" id="adv-svr">1,371 dynes</span>
+              <span class="font-label-sm text-[9px] text-on-surface-variant block mt-0.5">Vasomotor Tone</span>
+            </div>
+            <!-- End-Tidal CO2 -->
+            <div class="bg-surface-container-low p-2.5 rounded-lg border border-surface-container-high/40">
+              <span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">End-Tidal CO2 (EtCO2)</span>
+              <span class="font-headline-md text-primary font-bold" id="adv-etco2">38.0 mmHg</span>
+              <span class="font-label-sm text-[9px] text-secondary block mt-0.5">Adequate Alveolar Vent</span>
+            </div>
+            <!-- Intracranial Pressure (ICP) -->
+            <div class="bg-surface-container-low p-2.5 rounded-lg border border-surface-container-high/40">
+              <span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Optic Sheath (ONSD)</span>
+              <span class="font-headline-md text-on-surface font-bold" id="adv-onsd">5.20 mm</span>
+              <span class="font-label-sm text-[9px] text-secondary block mt-0.5">ICP &lt; 15 mmHg (Safe)</span>
+            </div>
+            <!-- Cephalad Fluid Shift -->
+            <div class="bg-surface-container-low p-2.5 rounded-lg border border-surface-container-high/40">
+              <span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Cranial Fluid Shift</span>
+              <span class="font-headline-md text-primary font-bold" id="adv-fluid-shift">+0.8 cm</span>
+              <span class="font-label-sm text-[9px] text-secondary block mt-0.5">Jugular Tone Stable</span>
+            </div>
+            <!-- Cumulative Mission Radiation -->
+            <div class="bg-surface-container-low p-2.5 rounded-lg border border-surface-container-high/40">
+              <span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Cumulative Radiation</span>
+              <span class="font-headline-md text-on-surface font-bold" id="adv-cum-rad">48.6 mSv</span>
+              <span class="font-label-sm text-[9px] text-on-surface-variant block mt-0.5">Career Limit: 350 mSv</span>
+            </div>
+            <!-- Daily Resistive Workload -->
+            <div class="bg-surface-container-low p-2.5 rounded-lg border border-surface-container-high/40">
+              <span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">ARED Workload Today</span>
+              <span class="font-headline-md text-secondary font-bold" id="adv-ared-workload">840 kJ</span>
+              <span class="font-label-sm text-[9px] text-secondary block mt-0.5">Musculoskeletal OK</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- 4. Interactive Quick Actions & Calibration -->
+      <section class="w-full flex flex-col gap-2.5 pt-1">
+        <button aria-label="Run Instant 30s Vitals Calibration" class="w-full min-h-[56px] rounded-xl bg-primary-container text-on-primary font-headline-md text-headline-md font-bold tracking-tight shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_28px_rgba(0,229,255,0.65)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer" id="calibrate-btn" type="button">
+          <span class="material-symbols-outlined text-[22px]" id="calibrate-icon">auto_mode</span>
+          <span id="calibrate-text">Run Instant 30s Vitals Calibration</span>
+        </button>
+      </section>
+
+      <!-- 4.5 Ground Staff Scientist & Astronaut Telemetry Link Hub -->
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-primary-container/30 flex flex-col gap-3 relative overflow-hidden">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary-container">
+              <span class="material-symbols-outlined text-[20px]">hub</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">GROUND SCIENTISTS &amp; CREW TELEMETRY LINK</span>
+                <span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#7dffa2] animate-pulse"></span>
+              </div>
+              <span class="font-label-sm text-[11px] text-on-surface-variant block">NASA Ames Space Life Sciences • DSN Channel 4 (0.28s Relay Delay)</span>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm uppercase font-semibold text-[10px]">2-WAY ACTIVE LINK</span>
+        </div>
+
+        <!-- Scientist & Flight Surgeon Review Cards Strip -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <!-- Ground Scientist Card -->
+          <div class="bg-surface-container-low p-3 rounded-lg border border-primary-container/20 flex items-start gap-2.5">
+            <div class="w-9 h-9 rounded-full bg-cyan-950 border border-cyan-400 flex items-center justify-center text-primary-container font-headline-md text-xs font-bold shrink-0">
+              RV
+            </div>
+            <div class="flex flex-col min-w-0">
+              <div class="flex items-center gap-1.5">
+                <strong class="text-on-surface text-xs font-headline-md font-semibold truncate">Dr. Robert Vance, PhD</strong>
+                <span class="text-[9px] px-1 rounded bg-primary-container/20 text-primary font-label-sm uppercase">NASA Scientist</span>
+              </div>
+              <p class="text-[11px] text-on-surface-variant mt-0.5 leading-snug">
+                “Space biology telemetry looks solid. Fluid cephalad shift at +0.8cm is well adapted. Continue your scheduled 45-min cycle ergometer protocol today.”
+              </p>
+            </div>
+          </div>
+
+          <!-- Flight Surgeon Card -->
+          <div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant/30 flex items-start gap-2.5">
+            <div class="w-9 h-9 rounded-full bg-blue-950 border border-blue-400 flex items-center justify-center text-primary font-headline-md text-xs font-bold shrink-0">
+              PM
+            </div>
+            <div class="flex flex-col min-w-0">
+              <div class="flex items-center gap-1.5">
+                <strong class="text-on-surface text-xs font-headline-md font-semibold truncate">Dr. Paul Myers, MD</strong>
+                <span class="text-[9px] px-1 rounded bg-secondary-container/20 text-secondary font-label-sm uppercase">Flight Surgeon</span>
+              </div>
+              <p class="text-[11px] text-on-surface-variant mt-0.5 leading-snug">
+                “Cardiac output 5.25 L/min and ONSD 5.20mm nominal over last 6 orbits. Snellen acuity 20/20. Fully approved for EVA egress tomorrow.”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direct Transmission Buttons for Astronaut -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-surface-container-high/60">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="font-label-sm text-[10px] text-on-surface-variant uppercase">Astronaut Quick-Comm:</span>
+            <button onclick="quickTransmitComm('Acknowledged scientist directive. Initiating 45-min ARED ergometer cycle.', 'ASTRONAUT')" class="px-2.5 py-1 rounded-md bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-sm text-[11px] cursor-pointer transition-colors border border-outline-variant/30">
+              Ack Scientist Directive
+            </button>
+            <button onclick="quickTransmitComm('All vitals comfortable. Fluid shift symptom score 1/10. Ready for EVA pre-breathe.', 'ASTRONAUT')" class="px-2.5 py-1 rounded-md bg-surface-container-high hover:bg-surface-container-highest text-secondary font-label-sm text-[11px] cursor-pointer transition-colors border border-outline-variant/30">
+              Send Vitals Status
+            </button>
+          </div>
+          <button onclick="switchViewTab('ground-chat')" class="px-3 py-1 rounded-md bg-primary-container text-on-primary font-label-sm text-[11px] font-bold flex items-center gap-1 cursor-pointer">
+            <span class="material-symbols-outlined text-[14px]">forum</span>
+            <span>Ground Chat Hub</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 5. Houston Ground Doctor Review Card -->
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30 flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px] text-primary-container">verified</span>
+            <span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">HOUSTON GROUND DOCTOR REVIEW</span>
+          </div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant">Orbit 4,118</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-blue-900 border border-blue-400 flex items-center justify-center text-primary font-headline-md text-sm font-bold shrink-0">
+            PM
+          </div>
+          <div class="flex flex-col min-w-0">
+            <div class="flex items-center gap-2">
+              <span class="font-headline-md text-headline-md text-on-surface font-semibold text-[15px]">Dr. Paul Myers, MD</span>
+              <span class="px-1.5 py-0.2 rounded bg-secondary-container/20 text-secondary font-label-sm text-label-sm font-semibold border border-secondary/30">Chief Surgeon</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+              “All vitals nominal across last 6 orbits. Cardiovascular and cranial pressure adapt smoothly to microgravity. Cleared for EVA prep tomorrow morning.”
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-surface-container-high/40">
+          <div class="flex items-center gap-1.5 text-secondary font-label-sm text-label-sm font-bold">
+            <span class="material-symbols-outlined text-[16px]">check_circle</span>
+            <span>EVA Medical Sign-Off Valid</span>
+          </div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant">Signed 14m ago</span>
+        </div>
+      </section>
+
+      <!-- 6. Quick Emergency Call to Flight Surgeon Bar -->
+      <section class="w-full rounded-xl bg-surface-container-high p-3.5 shadow-md border border-outline-variant/30 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-9 h-9 rounded-full bg-error-container/30 flex items-center justify-center text-error shrink-0">
+            <span class="material-symbols-outlined text-[20px]">phone_in_talk</span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-md text-label-md text-on-surface font-bold truncate">Direct Flight Surgeon Audio Link</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant text-[12px] truncate">Priority 1 secure capsule frequency</span>
+          </div>
+        </div>
+        <button aria-label="Call Flight Surgeon" id="btn-call-surgeon" class="px-3.5 py-2 rounded-lg bg-surface-container-highest hover:bg-surface-bright text-primary font-label-md text-label-md font-bold tracking-wide active:scale-95 transition-all shrink-0 flex items-center gap-1.5 shadow border border-outline-variant" type="button">
+          <span class="material-symbols-outlined text-[16px]">call</span>
+          <span>CALL</span>
+        </button>
+      </section>
+    </div>
+
+    <!-- BODY CHECK & DIGITAL TWIN VIEW -->
+    <div id="view-body-check" class="tab-view hidden flex-col w-full pb-6 space-y-4">
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <h2 class="font-headline-md text-headline-md text-primary font-bold">ASTRONAUT HEALTH TIMELINE</h2>
+            <p id="twin-crew-name" class="mt-1 text-xs text-on-surface-variant">Select a crew member</p>
+          </div>
+          <button id="twin-refresh-button" type="button" class="inline-flex items-center gap-1 rounded-lg border border-outline-variant/50 px-3 py-2 text-[10px] font-bold text-primary hover:border-primary-container disabled:opacity-50">
+            <span class="material-symbols-outlined text-sm">refresh</span>Refresh record
+          </button>
+        </div>
+        <p class="font-body-sm text-on-surface-variant mb-4">
+          Review stored measurements against the astronaut’s configured personal baseline. Trends use the latest records available in the local backend; they are not a biological simulation or clinical assessment.
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+            <span class="font-label-sm text-on-surface-variant uppercase block">Personal baseline HR</span>
+            <span class="font-headline-md text-primary font-bold" id="twin-base-hr">—</span>
+          </div>
+          <div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+            <span class="font-label-sm text-on-surface-variant uppercase block">Latest stored HR</span>
+            <span class="font-headline-md text-on-surface font-bold" id="twin-latest-hr">—</span>
+          </div>
+          <div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+            <span class="font-label-sm text-on-surface-variant uppercase block">Stored samples</span>
+            <span class="font-headline-md text-on-surface font-bold" id="twin-sample-count">—</span>
+          </div>
+          <div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+            <span class="font-label-sm text-on-surface-variant uppercase block">Field completeness</span>
+            <span class="font-headline-md text-secondary font-bold" id="twin-completeness">—</span>
+          </div>
+        </div>
+
+        <div class="mt-4 rounded-xl border border-outline-variant/30 bg-surface-container-low p-3 sm:p-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <label for="twin-metric-select" class="block text-[10px] uppercase tracking-wider text-on-surface-variant">Trend measurement</label>
+              <select id="twin-metric-select" class="mt-1 rounded-lg border border-outline-variant/50 bg-surface-container px-3 py-2 text-xs text-on-surface">
+                <option value="hr">Heart rate · bpm</option>
+                <option value="spo2">SpO₂ · %</option>
+                <option value="resp_rate">Respiratory rate · /min</option>
+                <option value="bp_sys">Systolic blood pressure · mmHg</option>
+              </select>
+            </div>
+            <div id="twin-metric-summary" class="text-right text-[10px] text-on-surface-variant">Waiting for stored measurements</div>
+          </div>
+          <div id="twin-chart-container" class="mt-3 min-h-44 overflow-hidden rounded-lg border border-outline-variant/20 bg-surface-container p-2" role="img" aria-label="Stored health measurement trend">
+            <div id="twin-chart-empty" class="flex min-h-40 items-center justify-center px-4 text-center text-xs text-on-surface-variant">Connect the backend and collect telemetry to build this astronaut’s measurement history.</div>
+          </div>
+          <div class="mt-2 flex flex-wrap items-center justify-between gap-2 text-[9px] text-on-surface-variant">
+            <span id="twin-chart-source">Source and collection period will appear when measurements are available.</span>
+            <span class="inline-flex items-center gap-1"><span class="inline-block h-0.5 w-4 bg-primary"></span>Stored values <span id="twin-baseline-legend" class="ml-2"></span></span>
+          </div>
+        </div>
+        <div id="twin-status" class="mt-3 text-[10px] text-on-surface-variant" role="status" aria-live="polite"></div>
+        <div class="mt-3 rounded-lg border border-tertiary-container/30 bg-tertiary-container/10 p-3 text-[10px] leading-relaxed text-on-surface-variant">
+          <strong class="text-tertiary-fixed-dim">Interpretation:</strong> Baselines are configured reference values, not automatically personalized clinical norms. Completeness only counts non-empty fields in the displayed stored samples. Simulated readings are labeled as such and are not real astronaut measurements.
+        </div>
+      </section>
+
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30">
+        <div class="flex items-center justify-between gap-3 mb-4">
+          <div>
+            <h2 class="font-headline-md text-headline-md text-primary font-bold">BODY SYSTEM STATUS</h2>
+            <p class="mt-1 text-xs text-on-surface-variant">Illustrative body map using available telemetry and configured baselines. A browser cannot scan a person's body; live measurements require compatible sensors.</p>
+          </div>
+          <span class="rounded-full border border-secondary/30 bg-secondary-container/20 px-2.5 py-1 text-[10px] font-label-sm uppercase tracking-[0.16em] text-secondary">Prototype</span>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-4">
+          <div class="rounded-2xl border border-primary-container/30 bg-[#0e1728] p-4">
+            <div class="mb-3 flex items-center justify-between">
+              <span class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Telemetry body map · illustrative</span>
+              <span id="body-scan-summary-tag" class="rounded-full border border-secondary/30 bg-secondary-container/20 px-2 py-0.5 text-[9px] font-label-sm uppercase text-secondary">Nominal</span>
+            </div>
+            <div id="body-scan-panel" class="min-h-[340px]"></div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="rounded-2xl border border-outline-variant/30 bg-surface-container-low p-4">
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="font-label-sm text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Rule-based risk indicator</span>
+                <span id="body-scan-risk-score" class="font-headline-md text-lg text-primary">—</span>
+              </div>
+              <p id="body-scan-prediction" class="text-sm leading-relaxed text-on-surface">Waiting for the latest telemetry and historical scan trend.</p>
+              <div class="mt-3 h-2 w-full overflow-hidden rounded-full bg-surface-container-high">
+                <div id="body-scan-risk-bar" class="h-full rounded-full bg-secondary transition-all duration-500" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-outline-variant/30 bg-surface-container-low p-4">
+              <div class="mb-2 flex items-center justify-between">
+                <span class="font-label-sm text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Heart-rate samples · not ECG</span>
+                <span id="body-heart-live-bpm" class="font-headline-md text-sm text-primary">— bpm</span>
+              </div>
+              <div id="body-heart-chart" class="h-36 min-h-[140px] w-full overflow-hidden rounded-lg border border-outline-variant/20 bg-surface-container p-2"></div>
+              <p id="body-heart-context" class="mt-2 text-[9px] text-on-surface-variant">Waiting for stored heart-rate samples.</p>
+            </div>
+
+            <div class="rounded-2xl border border-outline-variant/30 bg-surface-container-low p-4">
+              <span class="font-label-sm text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Detected system flags</span>
+              <div id="body-scan-issues" class="mt-3 space-y-2"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Psychomotor Vigilance Task (PVT Interactive) -->
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="font-headline-md text-headline-md text-primary font-bold">PSYCHOMOTOR VIGILANCE TASK (PVT)</h2>
+          <span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm uppercase font-semibold">Cognitive Check</span>
+        </div>
+        <p class="font-body-sm text-on-surface-variant mb-4">
+          Gold standard NASA cognitive reaction time test measuring spaceflight neurobehavioral alertness and sleep debt.
+        </p>
+
+        <div id="pvt-box" class="w-full h-44 rounded-xl bg-surface-container-low border-2 border-outline-variant flex flex-col items-center justify-center cursor-pointer select-none transition-all p-4 text-center">
+          <span id="pvt-prompt" class="font-headline-md text-primary font-bold">CLICK TO BEGIN COGNITIVE TEST</span>
+          <span id="pvt-timer" class="font-metric-display text-on-surface font-bold hidden">000 ms</span>
+        </div>
+
+        <div class="flex items-center justify-between mt-3 text-on-surface-variant font-label-sm">
+          <span>Last Reaction: <strong class="text-primary" id="pvt-last-rt">228 ms</strong></span>
+          <span>Lapses (&gt;500ms): <strong class="text-secondary" id="pvt-last-lapse">0</strong></span>
+        </div>
+      </section>
+    </div>
+
+    <!-- DAILY TASKS & CHECKLISTS VIEW -->
+    <div id="view-daily-tasks" class="tab-view hidden flex-col w-full pb-6 space-y-4">
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-error/25">
+        <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+          <div class="flex items-start gap-2.5">
+            <span class="material-symbols-outlined text-error">emergency</span>
+            <div>
+              <h2 class="font-headline-md text-error font-bold">INCIDENT RESPONSE CONSOLE</h2>
+              <p class="mt-1 text-[11px] leading-relaxed text-on-surface-variant">Review active incident records, acknowledge them, and track linked checklist steps. Actions are logged by the local prototype backend.</p>
+            </div>
+          </div>
+          <button id="incident-refresh-button" type="button" class="rounded-lg border border-outline-variant/50 px-3 py-2 text-[10px] font-bold text-primary hover:border-primary-container disabled:opacity-50">Refresh incidents</button>
+        </div>
+        <div class="mb-3 rounded-lg border border-tertiary-container/30 bg-tertiary-container/10 p-2.5 text-[10px] leading-relaxed text-on-surface-variant">
+          <strong class="text-tertiary-fixed-dim">Prototype limitation:</strong> The app has no authenticated user identity or backend role enforcement. Selecting a role here does not authorize an action. This console is for demonstrations only; follow approved mission procedures and qualified medical authority.
+        </div>
+        <div id="incident-console-status" class="mb-2 text-[10px] text-on-surface-variant" role="status" aria-live="polite">Incident records will load when this view opens.</div>
+        <div id="incident-list-container" class="space-y-3">
+          <p class="rounded-lg border border-outline-variant/30 p-4 text-xs text-on-surface-variant">No incident list loaded.</p>
+        </div>
+      </section>
+
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-headline-md text-headline-md text-primary font-bold">OFFLINE CLINICAL EMERGENCY CHECKLISTS</h2>
+          <span class="px-2 py-0.5 rounded-full bg-primary-container/20 text-primary font-label-sm uppercase">100% Offline</span>
+        </div>
+        <div id="procedures-list-container" class="space-y-3"></div>
+      </section>
+
+      <!-- Medical Inventory Formulary -->
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-headline-md text-headline-md text-primary font-bold">SPACE PHARMACY &amp; FORMULARY INVENTORY</h2>
+          <span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm uppercase">Onboard SQLite</span>
+        </div>
+        <div id="inventory-list-container" class="space-y-2"></div>
+      </section>
+    </div>
+
+    <!-- GROUND CHAT & DSN SYNC VIEW -->
+    <div id="view-ground-chat" class="tab-view hidden flex-col w-full pb-6 space-y-4">
+      
+      <!-- Ground Staff <-> Astronaut Live Communication Transceiver -->
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[22px] text-primary-container">headset_mic</span>
+            <div>
+              <h2 class="font-headline-md text-headline-md text-primary font-bold">GROUND SCIENTISTS &amp; CREW COMMUNICATIONS</h2>
+              <span class="font-label-sm text-[10px] text-on-surface-variant block">Deep Space Network (DSN) Transceiver Channel 4</span>
+            </div>
+          </div>
+          <!-- Signal Propagation Delay Selector -->
+          <div class="flex items-center gap-1.5 bg-surface-container-high px-2.5 py-1 rounded-full border border-outline-variant/40">
+            <span class="material-symbols-outlined text-[14px] text-secondary">satellite_alt</span>
+            <span class="font-label-sm text-[10px] text-on-surface-variant">RELAY:</span>
+            <select id="delay-sim-select" class="bg-transparent text-secondary text-[11px] font-label-sm font-semibold outline-none cursor-pointer" onchange="updateLightDelay()">
+              <option value="0.28">ISS Low Earth Orbit (0.28s)</option>
+              <option value="2.6">Lunar Gateway Orbit (2.6s)</option>
+              <option value="860">Mars Transit Deep Space (14.3 min)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Live Messages Scroll Container -->
+        <div id="ground-messages-stream" class="space-y-2.5 max-h-72 overflow-y-auto p-3 rounded-xl bg-surface-container-low border border-surface-container-high/60 mb-3">
+          <!-- Dynamic messages will be rendered here -->
+        </div>
+
+        <!-- Compose Message & Directive Form -->
+        <div class="space-y-2 pt-2 border-t border-surface-container-high/60">
+          <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="font-label-sm text-on-surface-variant uppercase text-[10px]">TRANSMIT AS:</span>
+              <select id="msg-sender-role" class="bg-surface-container-high text-primary px-2 py-1 rounded font-label-sm text-xs border border-outline-variant/40">
+                <option value="GROUND_SCIENTIST">Dr. Robert Vance, PhD (NASA Scientist)</option>
+                <option value="FLIGHT_SURGEON">Dr. Paul Myers, MD (Flight Surgeon)</option>
+                <option value="BIOMEDICAL_ENGINEER">Mark Alvarez (Biomedical Engineer)</option>
+                <option value="ASTRONAUT">Dr. Sarah Chen (Astronaut on ISS)</option>
+              </select>
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="flex items-center gap-1 font-label-sm text-[11px] text-tertiary-fixed-dim cursor-pointer">
+                <input type="checkbox" id="msg-directive-check" class="cursor-pointer">
+                <span>Flight Medical Directive</span>
+              </label>
+              <select id="msg-priority" class="bg-surface-container-high text-on-surface px-2 py-1 rounded font-label-sm text-xs border border-outline-variant/40">
+                <option value="ROUTINE">Routine</option>
+                <option value="ADVISORY">Advisory</option>
+                <option value="URGENT">Urgent / Critical</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Preset Ground-to-Crew Transmissions -->
+          <div class="flex items-center gap-1.5 flex-wrap text-[10px]">
+            <span class="text-on-surface-variant font-label-sm uppercase">Quick Transmit:</span>
+            <button type="button" onclick="setGroundMessageDraft('GROUND_SCIENTIST', 'Microgravity experiment BIO-72A in progress. Maintain 180W cycle ergometer. Log fluid shift.', false, 'ROUTINE')" class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-primary border border-primary/20 cursor-pointer">
+              🔬 Scientist: BIO-72A Protocol
+            </button>
+            <button type="button" onclick="setGroundMessageDraft('FLIGHT_SURGEON', 'Houston Flight Surgeon reviewing 24h cardiac trend. Baseline stable. Cleared for EVA prep.', true, 'ADVISORY')" class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-error border border-error/20 cursor-pointer">
+              🩺 Surgeon: EVA Clearance
+            </button>
+            <button type="button" onclick="setGroundMessageDraft('ASTRONAUT', 'Crew report: Completed 45-min ARED workout. Consumed 750ml water. Feeling energetic.', false, 'ROUTINE')" class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-secondary border border-secondary/20 cursor-pointer">
+              🚀 Crew: Exercise &amp; Hydration Log
+            </button>
+          </div>
+
+          <div class="flex gap-2">
+            <input type="text" id="msg-input-text" placeholder="Type transmission to ground scientists or station crew..." class="flex-1 p-2.5 rounded-lg bg-surface-container-low border border-outline-variant text-on-surface font-body-sm text-xs focus:border-primary-container outline-none">
+            <button class="px-4 py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md font-bold text-xs flex items-center gap-1.5 cursor-pointer shadow active:scale-95 transition-all" onclick="sendGroundCommMessage()">
+              <span class="material-symbols-outlined text-[16px]">send</span>
+              <span>Transmit</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Store-and-Forward DSN Synchronization Status -->
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-headline-md text-headline-md text-primary font-bold">STORE-AND-FORWARD DSN SYNCHRONIZATION</h2>
+          <span class="px-2 py-0.5 rounded-full bg-primary-container/20 text-primary font-label-sm uppercase" id="sync-pill-state">OFFLINE (AUTONOMOUS)</span>
+        </div>
+        <div class="grid grid-cols-3 gap-3 mb-4">
+          <div class="bg-surface-container-low p-3 rounded-lg text-center">
+            <span class="font-label-sm text-on-surface-variant uppercase block">Pending Packets</span>
+            <span class="font-headline-lg text-primary font-bold" id="sync-pending-count">0</span>
+          </div>
+          <div class="bg-surface-container-low p-3 rounded-lg text-center">
+            <span class="font-label-sm text-on-surface-variant uppercase block">Synced Packets</span>
+            <span class="font-headline-lg text-secondary font-bold" id="sync-completed-count">0</span>
+          </div>
+          <div class="bg-surface-container-low p-3 rounded-lg text-center">
+            <span class="font-label-sm text-on-surface-variant uppercase block">Storage Health</span>
+            <span class="font-headline-lg text-secondary font-bold" id="sync-storage-health">HEALTHY</span>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button class="px-3.5 py-2 rounded-lg bg-primary-container text-on-primary font-label-md font-bold text-xs cursor-pointer" onclick="setUplinkState('ONLINE')">Connect DSN Uplink (ONLINE)</button>
+          <button class="px-3.5 py-2 rounded-lg bg-surface-container-high text-on-surface font-label-md font-bold text-xs cursor-pointer" onclick="setUplinkState('OFFLINE')">Sever Uplink (OFFLINE)</button>
+          <button class="px-3.5 py-2 rounded-lg bg-secondary-container text-on-secondary font-label-md font-bold text-xs cursor-pointer" onclick="triggerSyncBatch()">Flush Batch Now</button>
+        </div>
+      </section>
+
+      <!-- Tamper-Evident SHA-256 Audit Log Viewer -->
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-headline-md text-headline-md text-primary font-bold">CRYPTOGRAPHIC AUDIT CHAIN (SHA-256)</h2>
+          <span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm uppercase" id="crypto-chain-badge">CRYPTO CHAIN INTACT</span>
+        </div>
+        <div class="max-h-56 overflow-y-auto space-y-2" id="audit-log-container"></div>
+      </section>
+    </div>
+
+    <!-- NASA RESEARCH & SIMULATION LAB VIEW -->
+    <div id="view-tools" class="tab-view hidden flex-col w-full pb-6 space-y-4">
+      <!-- Simulation Scenario Controls -->
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="font-headline-md text-headline-md text-primary font-bold">SIMULATION LAB &amp; SCENARIO INJECTOR</h2>
+          <span class="px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary-fixed-dim font-label-sm uppercase">Simulated Telemetry</span>
+        </div>
+        <p class="font-body-sm text-on-surface-variant mb-4">
+          Test autonomous triage, XAI attribution, and clinical alarms by injecting physiological anomalies.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+          <div>
+            <label class="font-label-sm text-on-surface-variant uppercase block mb-1">Scenario Preset</label>
+            <select id="sim-scenario-select" class="w-full p-2.5 rounded-lg bg-surface-container-low border border-outline-variant text-primary font-headline-md text-sm">
+              <option value="NORMAL">Nominal Spaceflight Baseline</option>
+              <option value="TACHYCARDIA">EVA Inappropriate Tachycardia (140+ bpm)</option>
+              <option value="HYPOXIA">Acute Peripheral Hypoxia (SpO2 86%)</option>
+              <option value="ORTHOSTATIC">Post-EVA Orthostatic Hypotension</option>
+              <option value="SENSOR_DISCONNECT">Sensor Telemetry Lead Disconnect</option>
+            </select>
+          </div>
+          <div class="flex items-end">
+            <button class="w-full p-2.5 rounded-lg bg-primary-container text-on-primary font-headline-md text-sm font-bold shadow" onclick="applySimScenario()">
+              Inject Scenario Telemetry
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- NASA Research Data Workbench -->
+      <section class="w-full rounded-2xl bg-surface-container p-4 sm:p-5 shadow-md border border-primary-container/30 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 shrink-0 rounded-xl bg-primary-container/15 text-primary-container flex items-center justify-center">
+              <span class="material-symbols-outlined">travel_explore</span>
+            </div>
+            <div>
+              <h2 class="font-headline-md text-xl text-on-surface font-bold">NASA Research Workbench</h2>
+              <p class="text-xs text-on-surface-variant mt-1 max-w-2xl">Discover historical open-science investigations. Review the population, study design, measurements, limitations, and file access before research use.</p>
+            </div>
+          </div>
+          <span class="shrink-0 rounded-full bg-primary-container/15 border border-primary-container/25 px-2.5 py-1 text-[10px] font-label-sm uppercase text-primary">Research data · not live telemetry</span>
+        </div>
+        <div class="rounded-xl border border-tertiary-container/30 bg-tertiary-container/10 p-3 text-[11px] leading-relaxed text-on-surface-variant">
+          <strong class="text-tertiary-fixed-dim">Use and provenance:</strong> NASA OSDR includes human, animal, ground-analog, and other investigations. A search result is not automatically relevant to astronauts. Historical research is never added to crew health records or presented as current flight data.
+        </div>
+        <form id="osdr-search-form" class="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_220px_auto] gap-2">
+          <label for="osdr-search-field" class="sr-only">Search NASA OSDR datasets</label>
+          <input type="search" id="osdr-search-field" maxlength="120" value="spaceflight" placeholder="Search NASA studies…" class="min-w-0 p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/60 text-on-surface font-body-sm focus:border-primary-container outline-none">
+          <label for="osdr-category-filter" class="sr-only">Research category</label>
+          <select id="osdr-category-filter" class="p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/60 text-on-surface text-xs focus:border-primary-container outline-none">
+            <option value="">All OSDR research</option>
+            <option value="cardiovascular">Cardiovascular</option>
+            <option value="physiological adaptation">Physiological adaptation</option>
+            <option value="sleep and circadian">Sleep &amp; circadian</option>
+            <option value="bone and muscle">Bone &amp; muscle</option>
+            <option value="immune response">Immune response</option>
+            <option value="radiation biology">Radiation biology</option>
+            <option value="spaceflight environment">Spaceflight environment</option>
+            <option value="human behaviour">Human behaviour</option>
+          </select>
+          <button id="osdr-search-button" type="submit" class="px-5 py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md font-bold hover:brightness-110 disabled:opacity-50">Search</button>
+        </form>
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span id="osdr-search-status" role="status" class="text-[11px] text-on-surface-variant">Search NASA OSDR or use the verified offline catalogue.</span>
+          <span class="text-[10px] text-on-surface-variant">Source category: REAL_NASA_RESEARCH</span>
+        </div>
+        <div id="osdr-results-container" class="grid grid-cols-1 lg:grid-cols-2 gap-3"></div>
+        <div class="flex justify-center">
+          <button id="osdr-load-more" type="button" class="hidden rounded-lg border border-outline-variant/50 px-4 py-2 text-xs text-primary hover:border-primary-container">Load more results</button>
+        </div>
+        <div id="osdr-dataset-details" class="hidden rounded-xl border border-outline-variant/40 bg-surface-container-low p-4 sm:p-5"></div>
+      </section>
+
+      <!-- Hardware Cost BOM -->
+      <section class="w-full rounded-xl bg-surface-container p-4 shadow-md border border-outline-variant/30">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="font-headline-md text-headline-md text-primary font-bold">HARDWARE BILL OF MATERIALS (BOM)</h2>
+          <span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm uppercase font-bold">$218.00 TOTAL</span>
+        </div>
+        <div id="bom-container"></div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- FLOATING AI MEDICAL FLIGHT ASSISTANT (XAI DRAWER TRIGGER) -->
+  <aside aria-label="AI Medical Flight Assistant" class="fixed bottom-24 right-4 z-50 flex flex-col items-end gap-1.5 pointer-events-auto">
+    <div class="px-2.5 py-1 rounded-full bg-surface-container-highest/90 border border-primary-container/40 backdrop-blur-md shadow-lg flex items-center gap-1.5">
+      <span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_6px_rgba(125,255,162,1)] animate-pulse"></span>
+      <span class="font-label-sm text-label-sm text-primary font-semibold tracking-wide">Chat with AstroAI</span>
+    </div>
+    <button id="ai-assistant-btn" aria-label="Launch Rocket AI Medical Assistant" class="group relative flex items-center gap-2.5 px-3.5 py-2.5 rounded-full bg-gradient-to-br from-surface-container-high via-surface-container to-surface-container-low border border-primary-container/50 shadow-[0_0_20px_rgba(0,229,255,0.35)] hover:border-primary-container hover:shadow-[0_0_24px_rgba(0,229,255,0.5)] active:scale-[0.96] transition-all cursor-pointer" type="button">
+      <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-primary-container/20 border border-primary-container/40 text-primary-container shadow-[0_0_12px_rgba(0,229,255,0.4)]">
+        <span class="material-symbols-outlined text-[20px] transition-transform group-hover:-translate-y-0.5 group-hover:rotate-6">rocket_launch</span>
+        <span class="absolute -bottom-1 -right-0.5 w-2 h-2 rounded-full bg-secondary shadow-[0_0_6px_rgba(125,255,162,1)]"></span>
+      </div>
+      <div class="flex flex-col items-start pr-1">
+        <div class="flex items-center gap-1">
+          <span class="font-label-md text-label-md text-primary font-bold tracking-tight">AstroAI</span>
+          <span class="px-1 rounded bg-secondary-container/20 text-secondary font-label-sm text-label-sm font-bold">GROQ</span>
+        </div>
+        <span class="font-label-sm text-label-sm text-on-surface-variant">Health Q&amp;A · Groq</span>
+      </div>
+    </button>
+  </aside>
+
+  <!-- BOTTOM NAVIGATION DOCK -->
+  <nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.5)] border-t border-surface-container-high/60">
+    <div class="flex items-center justify-around h-20 px-2 max-w-lg mx-auto">
+      <button class="nav-tab active flex flex-1 min-w-0 flex-col items-center justify-center gap-1 h-14 rounded-xl px-1 text-primary-container bg-surface-container-high/80 shadow-[0_0_16px_rgba(0,229,255,0.2)] transition-all cursor-pointer" data-view="crew-overview">
+        <span class="material-symbols-outlined text-[22px]">groups</span>
+        <span class="font-label-sm text-[9px] tracking-wide">Crew</span>
+      </button>
+      <button class="nav-tab flex flex-1 min-w-0 flex-col items-center justify-center gap-1 h-14 rounded-xl px-1 text-on-surface-variant hover:text-on-surface transition-all cursor-pointer" data-view="vitals">
+        <span class="material-symbols-outlined text-[24px]">cardiology</span>
+        <span class="font-label-sm text-[9px] tracking-wide">Vitals</span>
+      </button>
+
+      <button class="nav-tab flex flex-1 min-w-0 flex-col items-center justify-center gap-1 h-14 rounded-xl px-1 text-on-surface-variant hover:text-on-surface transition-all cursor-pointer" data-view="body-check">
+        <span class="material-symbols-outlined text-[24px]">accessibility_new</span>
+        <span class="font-label-sm text-[9px] tracking-wide">Body</span>
+      </button>
+
+      <button class="nav-tab flex flex-1 min-w-0 flex-col items-center justify-center gap-1 h-14 rounded-xl px-1 text-on-surface-variant hover:text-on-surface transition-all cursor-pointer" data-view="daily-tasks">
+        <span class="material-symbols-outlined text-[24px]">checklist</span>
+        <span class="font-label-sm text-[9px] tracking-wide">Tasks</span>
+      </button>
+
+      <button class="nav-tab flex flex-1 min-w-0 flex-col items-center justify-center gap-1 h-14 rounded-xl px-1 text-on-surface-variant hover:text-on-surface transition-all cursor-pointer" data-view="ground-chat">
+        <div class="relative">
+          <span class="material-symbols-outlined text-[24px]">headset_mic</span>
+          <span class="absolute -top-1 -right-2 px-1.5 py-0.2 rounded-full bg-secondary-container text-on-secondary font-label-sm text-label-sm font-bold shadow-[0_0_8px_rgba(5,231,119,0.7)]" id="sync-counter-badge">0</span>
+        </div>
+        <span class="font-label-sm text-[9px] tracking-wide">Comms</span>
+      </button>
+
+      <button class="nav-tab flex flex-1 min-w-0 flex-col items-center justify-center gap-1 h-14 rounded-xl px-1 text-on-surface-variant hover:text-on-surface transition-all cursor-pointer" data-view="tools">
+        <span class="material-symbols-outlined text-[24px]">science</span>
+        <span class="font-label-sm text-[9px] tracking-wide">Research</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MODAL / DRAWER FOR EXPLAINABLE AI & CLINICAL PROCEDURES -->
+  <div id="app-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div id="app-modal-panel" class="w-full max-w-xl max-h-[85vh] rounded-2xl bg-surface-container border border-primary-container/40 p-5 overflow-y-auto shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 border-b border-surface-container-high mb-4">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary-container text-2xl" id="modal-icon">smart_toy</span>
+          <h3 class="font-headline-md text-primary font-bold" id="modal-title">AstroAI Diagnostic Console</h3>
+        </div>
+        <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-white cursor-pointer">
+          <span class="material-symbols-outlined text-lg">close</span>
+        </button>
+      </div>
+      <div id="modal-body" class="space-y-4"></div>
+    </div>
+  </div>
+
+  <script src="js/oscilloscope.js"></script>
+  <script src="js/app.js?v=person-profile-6"></script>
+</body>
+</html>

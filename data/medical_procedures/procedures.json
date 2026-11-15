@@ -1,0 +1,220 @@
+{
+  "procedures": [
+    {
+      "id": "PROC-CARD-01",
+      "code": "EMERG-CARD-01",
+      "title": "Microgravity Cardiac Arrest & CPR Protocol",
+      "category": "CARDIOVASCULAR",
+      "severity": "CRITICAL",
+      "indication": "Unresponsive astronaut, absence of normal breathing, pulseless electrical activity or asystole.",
+      "equipment_required": [
+        "Crew Medical Restraint System (CMRS)",
+        "Defibrillator / Automated External Defibrillator (AED)",
+        "Resuscitation Mask & Bag-Valve-Mask (BVM)",
+        "Emergency Epinephrine Auto-Injector (0.3mg)",
+        "IV/IO Access Kit"
+      ],
+      "steps": [
+        {
+          "step_id": 1,
+          "title": "Secure Astronaut to CMRS",
+          "description": "Immediately secure patient to the Crew Medical Restraint System (CMRS) board. Attach operator foot loops or hand tethers to counter reaction forces in microgravity.",
+          "critical": true
+        },
+        {
+          "step_id": 2,
+          "title": "Assess Rhythm & Attach Defibrillator",
+          "description": "Expose chest, clean skin of conductive perspiration, and apply AED/defibrillator pads (Antero-lateral placement). Follow AED voice prompt.",
+          "critical": true
+        },
+        {
+          "step_id": 3,
+          "title": "Deliver Shock if Advised (VF/pVT)",
+          "description": "Ensure no crew member is in direct contact with patient or CMRS conductive frame. Deliver shock immediately if indicated by AED.",
+          "critical": true
+        },
+        {
+          "step_id": 4,
+          "title": "Initiate Microgravity Chest Compressions",
+          "description": "Deliver continuous chest compressions at 100-120 cpm, depth 5-6 cm. Use handstand technique (pushing against opposing cabin bulkhead) or CMRS waist harness.",
+          "critical": true
+        },
+        {
+          "step_id": 5,
+          "title": "Airway Management & 100% O2",
+          "description": "Insert supraglottic airway or seal BVM with 100% supplemental oxygen. 1 breath every 6 seconds without interrupting compressions.",
+          "critical": false
+        },
+        {
+          "step_id": 6,
+          "title": "Administer Epinephrine",
+          "description": "Obtain IV or sternal IO access. Administer Epinephrine 1 mg IV/IO every 3-5 minutes. Log lot number and time in ASTRA.",
+          "critical": false
+        }
+      ]
+    },
+    {
+      "id": "PROC-RESP-01",
+      "code": "EMERG-RESP-01",
+      "title": "Emergency Hypoxia & Supplemental Oxygen Protocol",
+      "category": "RESPIRATORY",
+      "severity": "CRITICAL",
+      "indication": "Peripheral SpO2 < 88% or acute cabin depressurization / suit disconnect.",
+      "equipment_required": [
+        "Quick-Don Oxygen Mask",
+        "Portable Breathing Apparatus (PBA)",
+        "Pulse Oximeter Lead II",
+        "Cabin Atmospheric Pressure Gauge"
+      ],
+      "steps": [
+        {
+          "step_id": 1,
+          "title": "Immediate Donning of Quick-Don Mask",
+          "description": "Don emergency Quick-Don O2 mask within 5 seconds. Verify positive seal and continuous positive pressure airflow.",
+          "critical": true
+        },
+        {
+          "step_id": 2,
+          "title": "Verify Cabin Partial Pressure",
+          "description": "Cross-check spacecraft environmental telemetry: check Cabin Total Pressure (>14.7 psi / 101.3 kPa) and ppO2 (>160 mmHg).",
+          "critical": true
+        },
+        {
+          "step_id": 3,
+          "title": "Check Suit Umbilical / Local Atmosphere",
+          "description": "If on EVA or suit umbilical, inspect supply lines for kink, pressure drop, or atmospheric leak.",
+          "critical": true
+        },
+        {
+          "step_id": 4,
+          "title": "Administer High-Flow Oxygen",
+          "description": "Set delivery to 15 L/min high-flow 100% O2 via non-rebreather mask until SpO2 stabilizes above 95%.",
+          "critical": true
+        },
+        {
+          "step_id": 5,
+          "title": "Clinical Re-assessment & Neurological Check",
+          "description": "Evaluate mental status, pupillary reflexes, and perform finger-to-nose coordination to rule out cerebral hypoxia.",
+          "critical": false
+        }
+      ]
+    },
+    {
+      "id": "PROC-TOX-01",
+      "code": "EMERG-TOX-01",
+      "title": "Toxic Atmosphere & Chemical Scrubber Breakthrough",
+      "category": "ENVIRONMENTAL",
+      "severity": "CRITICAL",
+      "indication": "Cabin CO2 > 6.0 mmHg, ammonia vapor detection, or smoke generation.",
+      "equipment_required": [
+        "Full Face Contingency Breathing Apparatus",
+        "Emergency Atmospheric Scrubbing Canister (LiOH / Trace Contaminant)",
+        "Ammonia Dräger Test Tubes / Multi-Gas Detector"
+      ],
+      "steps": [
+        {
+          "step_id": 1,
+          "title": "Don Respiratory Protection",
+          "description": "All crew members immediately don emergency full-face breathing masks with autonomous supply.",
+          "critical": true
+        },
+        {
+          "step_id": 2,
+          "title": "Isolate Affected Module",
+          "description": "Close inter-module pressure hatches to compartmentalize contaminated volume.",
+          "critical": true
+        },
+        {
+          "step_id": 3,
+          "title": "Activate Contingency Air Scrubbing",
+          "description": "Switch Environmental Control and Life Support System (ECLSS) to emergency high-rate scrubber mode. Replace LiOH canisters.",
+          "critical": true
+        },
+        {
+          "step_id": 4,
+          "title": "Monitor Crew Vitals for Toxicity",
+          "description": "Continuous monitoring of crew SpO2, respiratory rate, and blood carboxyhemoglobin indicators.",
+          "critical": false
+        }
+      ]
+    },
+    {
+      "id": "PROC-RAD-01",
+      "code": "EMERG-RAD-01",
+      "title": "Acute Solar Particle Event (SPE) Radiation Countermeasures",
+      "category": "RADIATION",
+      "severity": "WARNING",
+      "indication": "Dosimeter dose rate > 500 uSv/hr or Space Weather Warning RED issued by Deep Space Network.",
+      "equipment_required": [
+        "Active Personal Dosimeter (APD)",
+        "Radiation Storm Shelter Water Wall Packs",
+        "Radioprotective Medication Kit (Potassium Iodide / Antiemetics)"
+      ],
+      "steps": [
+        {
+          "step_id": 1,
+          "title": "Maneuver Crew to Storm Shelter",
+          "description": "Move all crew members into the heavily shielded core storm shelter (water wall / logistics shielding configuration).",
+          "critical": true
+        },
+        {
+          "step_id": 2,
+          "title": "Dock Active Personal Dosimeters",
+          "description": "Verify personal dosimeters are active and synchronized with ASTRA telemetry mesh.",
+          "critical": true
+        },
+        {
+          "step_id": 3,
+          "title": "Administer Prophylactic Antiemetics if Symptomatic",
+          "description": "If prodromal nausea occurs, administer Promethazine 25mg orally or IM per medical officer directive.",
+          "critical": false
+        },
+        {
+          "step_id": 4,
+          "title": "ALARA Shielding Verification",
+          "description": "Audit shielding density and ensure stowage bags are oriented along the solar proton flux vector.",
+          "critical": false
+        }
+      ]
+    },
+    {
+      "id": "PROC-MICRO-01",
+      "code": "EMERG-MICRO-01",
+      "title": "Orthostatic Countermeasure & Saline Rehydration Protocol",
+      "category": "MICROGRAVITY",
+      "severity": "WARNING",
+      "indication": "Pulse pressure < 25 mmHg, pre-syncopal lightheadedness upon reorientation or EVA egress.",
+      "equipment_required": [
+        "Lower Body Compression Garment (LBCG)",
+        "Oral Electrolyte Rehydration Salts (ORS) / Saline IV",
+        "Automated Sphygmomanometer"
+      ],
+      "steps": [
+        {
+          "step_id": 1,
+          "title": "Position Crew in Neutral Body Posture",
+          "description": "Restrain astronaut in comfortable neutral body posture with legs slightly elevated to promote venous return.",
+          "critical": false
+        },
+        {
+          "step_id": 2,
+          "title": "Oral Electrolyte Loading",
+          "description": "Administer 1.0 Liter of chilled isotonic electrolyte fluid over 45 minutes to restore circulating plasma volume.",
+          "critical": true
+        },
+        {
+          "step_id": 3,
+          "title": "Apply Compression Countermeasures",
+          "description": "Don and inflate lower body compression garment (gradient pressure: 40-50 mmHg at calves, 30 mmHg at thighs).",
+          "critical": false
+        },
+        {
+          "step_id": 4,
+          "title": "Continuous Blood Pressure Monitoring",
+          "description": "Re-evaluate blood pressure every 10 minutes until systolic BP > 105 mmHg and pulse pressure > 35 mmHg.",
+          "critical": true
+        }
+      ]
+    }
+  ]
+}
