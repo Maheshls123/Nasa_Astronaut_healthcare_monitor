@@ -175,13 +175,29 @@ def chat_with_health_assistant(request: Request, payload: Dict[str, Any] = Body(
     except HTTPError as error:
         provider_error = error.read(2048).decode("utf-8", errors="replace").lower()
         if error.code == 403 and "error code: 1010" in provider_error:
-            logger.warning("Groq blocked the request at its Cloudflare edge (1010).")
+            ray_id = ""
+            if error.headers:
+                candidate_ray_id = error.headers.get("cf-ray", "").strip()
+                if candidate_ray_id and len(candidate_ray_id) <= 128 and all(
+                    character.isascii() and (character.isalnum() or character == "-")
+                    for character in candidate_ray_id
+                ):
+                    ray_id = candidate_ray_id
+            logger.warning(
+                "Groq blocked the request at its Cloudflare edge (1010); Ray ID: %s.",
+                ray_id or "not provided"
+            )
+            ray_detail = (
+                f" Cloudflare Ray ID: {ray_id}."
+                if ray_id
+                else " No Cloudflare Ray ID was provided; include the request time when contacting Groq support."
+            )
             raise HTTPException(
                 status_code=502,
                 detail=(
                     "Groq blocked this backend request at its network edge (Cloudflare 1010). "
                     "The key is loaded, but the provider did not accept the request. Check Groq "
-                    "account/network access or contact Groq support."
+                    "account/network access or contact Groq support." + ray_detail
                 )
             ) from error
         logger.warning("Groq assistant request failed with HTTP status %s.", error.code)

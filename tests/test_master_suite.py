@@ -426,21 +426,30 @@ class TestASTRACoreArchitecture(unittest.TestCase):
         from backend.app import chat_with_health_assistant
         from starlette.requests import Request
 
-        provider_error = HTTPError(
-            "https://api.groq.com/openai/v1/chat/completions",
-            403,
-            "Forbidden",
-            {},
-            io.BytesIO(b"error code: 1010")
-        )
         request = Request({"type": "http", "client": ("127.0.0.1", 8001)})
-        with patch.dict(os.environ, {"GROQ_API_KEY": "test-key"}):
-            with patch("backend.app.urlopen", side_effect=provider_error):
-                with self.assertRaises(HTTPException) as blocked:
-                    chat_with_health_assistant(request, {"messages": [{"role": "user", "content": "Hello"}]})
+        test_cases = (
+            ({"cf-ray": "7ed123abc-BOM"}, "Cloudflare Ray ID: 7ed123abc-BOM."),
+            ({}, "No Cloudflare Ray ID was provided"),
+            ({"cf-ray": "invalid ray id"}, "No Cloudflare Ray ID was provided")
+        )
+        for headers, expected_detail in test_cases:
+            with self.subTest(headers=headers):
+                provider_error = HTTPError(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    403,
+                    "Forbidden",
+                    headers,
+                    io.BytesIO(b"error code: 1010")
+                )
+                with patch.dict(os.environ, {"GROQ_API_KEY": "test-key"}):
+                    with patch("backend.app.urlopen", side_effect=provider_error):
+                        with self.assertRaises(HTTPException) as blocked:
+                            chat_with_health_assistant(request, {"messages": [{"role": "user", "content": "Hello"}]})
 
-        self.assertEqual(blocked.exception.status_code, 502)
-        self.assertIn("Cloudflare 1010", blocked.exception.detail)
+                self.assertEqual(blocked.exception.status_code, 502)
+                self.assertIn("Cloudflare 1010", blocked.exception.detail)
+                self.assertIn(expected_detail, blocked.exception.detail)
+                self.assertNotIn("test-key", blocked.exception.detail)
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
