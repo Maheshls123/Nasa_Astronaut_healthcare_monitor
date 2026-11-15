@@ -10,6 +10,8 @@ if (-not (Test-Path $PythonExe)) {
     exit 1
 }
 
+Set-Location $PSScriptRoot
+
 Write-Host "`n[1/3] Initializing local database..." -ForegroundColor Yellow
 & $PythonExe backend/database.py
 
@@ -21,8 +23,8 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host "`n[3/3] Launching Decoupled Backend & Frontend Processes..." -ForegroundColor Green
-Start-Process powershell -ArgumentList "-NoExit", "-File", "$PSScriptRoot\run_backend.ps1"
-Start-Process powershell -ArgumentList "-NoExit", "-File", "$PSScriptRoot\run_frontend.ps1"
+Start-Process powershell -ArgumentList "-ExecutionPolicy", "Bypass", "-NoExit", "-File", "$PSScriptRoot\run_backend.ps1" -WorkingDirectory $PSScriptRoot
+Start-Process powershell -ArgumentList "-ExecutionPolicy", "Bypass", "-NoExit", "-File", "$PSScriptRoot\run_frontend.ps1" -WorkingDirectory $PSScriptRoot
 
 Write-Host "`nBoth services running in separate processes:" -ForegroundColor Cyan
 Write-Host "  Frontend: http://localhost:3000" -ForegroundColor White

@@ -195,6 +195,7 @@ class TestASTRACoreArchitecture(unittest.TestCase):
                     }
                 }]
             }
+
         }
         with patch.object(client, "_request_json", return_value=response):
             result = client.search_datasets("confinement")
@@ -421,36 +422,27 @@ class TestASTRACoreArchitecture(unittest.TestCase):
                 chat_with_health_assistant(remote_request, {"messages": [{"role": "user", "content": "Hi"}]})
             self.assertEqual(non_local_request.exception.status_code, 403)
 
-    def test_13_health_assistant_explains_groq_cloudflare_block(self):
-        from fastapi import HTTPException
+    def test_13_health_assistant_gracefully_handles_groq_cloudflare_block(self):
+        """Verifies that if Groq triggers an edge restriction or block, AstroAI responds neatly via the Onboard Engine."""
         from backend.app import chat_with_health_assistant
         from starlette.requests import Request
 
         request = Request({"type": "http", "client": ("127.0.0.1", 8001)})
-        test_cases = (
-            ({"cf-ray": "7ed123abc-BOM"}, "Provider request reference: 7ed123abc-BOM."),
-            ({}, "No provider request reference was returned"),
-            ({"cf-ray": "invalid ray id"}, "No provider request reference was returned")
+        provider_error = HTTPError(
+            "https://api.groq.com/openai/v1/chat/completions",
+            403,
+            "Forbidden",
+            {"cf-ray": "7ed123abc-BOM"},
+            io.BytesIO(b"error code: 1010")
         )
-        for headers, expected_detail in test_cases:
-            with self.subTest(headers=headers):
-                provider_error = HTTPError(
-                    "https://api.groq.com/openai/v1/chat/completions",
-                    403,
-                    "Forbidden",
-                    headers,
-                    io.BytesIO(b"error code: 1010")
-                )
-                with patch.dict(os.environ, {"GROQ_API_KEY": "test-key"}):
-                    with patch("backend.app.urlopen", side_effect=provider_error):
-                        with self.assertRaises(HTTPException) as blocked:
-                            chat_with_health_assistant(request, {"messages": [{"role": "user", "content": "Hello"}]})
+        with patch.dict(os.environ, {"GROQ_API_KEY": "test-key"}):
+            with patch("backend.app.urlopen", side_effect=provider_error):
+                result = chat_with_health_assistant(request, {"messages": [{"role": "user", "content": "Explain space motion sickness"}]})
 
-                self.assertEqual(blocked.exception.status_code, 502)
-                self.assertIn("HTTP 403, access code 1010", blocked.exception.detail)
-                self.assertNotIn("Cloudflare", blocked.exception.detail)
-                self.assertIn(expected_detail, blocked.exception.detail)
-                self.assertNotIn("test-key", blocked.exception.detail)
+        self.assertIn("reply", result)
+        self.assertIn("Space Motion Sickness", result["reply"])
+        self.assertIn("Onboard", result["provider"])
+        self.assertNotIn("HTTP 403, access code 1010", result["reply"])
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

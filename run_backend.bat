@@ -1,5 +1,6 @@
 @echo off
 title ASTRA - Backend REST API Service
+cd /d "%~dp0"
 echo ===============================================================================
 echo     ASTRA: Autonomous Spaceflight Biomedical REST API Server
 echo     Decoupled Backend Microservice (Port 8000)

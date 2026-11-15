@@ -197,6 +197,13 @@
           </select>
         </div>
 
+        <!-- AstroAI Quick Launch Button -->
+        <button id="header-ai-btn" type="button" aria-label="Launch AstroAI Clinical Diagnostic Console" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-primary-container/20 to-primary-container/10 border border-primary-container/40 text-primary hover:border-primary-container hover:bg-primary-container/30 active:scale-95 transition-all cursor-pointer shadow-[0_0_12px_rgba(0,229,255,0.25)]">
+          <span class="material-symbols-outlined text-[18px]">smart_toy</span>
+          <span class="font-label-sm text-[11px] font-bold tracking-wide">AstroAI</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_4px_#7dffa2]"></span>
+        </button>
+
         <!-- Astronaut Switcher -->
         <div class="relative">
           <button id="astro-menu-btn" aria-label="Switch profile" class="relative flex items-center justify-center p-1 rounded-full bg-surface-container-high border border-outline-variant hover:border-primary-container transition-colors" type="button">
@@ -248,7 +255,7 @@
       <section class="rounded-2xl bg-surface-container p-4 sm:p-5 border border-outline-variant/30">
         <div class="mb-4">
           <h2 class="font-headline-md text-xl text-on-surface font-bold">Mission personnel</h2>
-          <p class="text-xs text-on-surface-variant mt-1">Five people · one assigned role each</p>
+          <p class="text-xs text-on-surface-variant mt-1">Astronauts and ground staff · one assigned role each</p>
         </div>
         <div id="mission-personnel-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-3"></div>
       </section>
@@ -1241,22 +1248,22 @@
   </main>
 
   <!-- FLOATING AI MEDICAL FLIGHT ASSISTANT (XAI DRAWER TRIGGER) -->
-  <aside aria-label="AI Medical Flight Assistant" class="fixed bottom-24 right-4 z-50 flex flex-col items-end gap-1.5 pointer-events-auto">
-    <div class="px-2.5 py-1 rounded-full bg-surface-container-highest/90 border border-primary-container/40 backdrop-blur-md shadow-lg flex items-center gap-1.5">
+  <aside id="ai-assistant-aside" aria-label="AI Medical Flight Assistant" class="fixed bottom-24 right-4 z-50 flex flex-col items-end gap-1.5 pointer-events-auto">
+    <div id="ai-assistant-pill" class="px-2.5 py-1 rounded-full bg-surface-container-highest/95 border border-primary-container/40 backdrop-blur-md shadow-lg flex items-center gap-1.5 cursor-pointer hover:bg-surface-container-high transition-colors">
       <span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_6px_rgba(125,255,162,1)] animate-pulse"></span>
       <span class="font-label-sm text-label-sm text-primary font-semibold tracking-wide">Chat with AstroAI</span>
     </div>
     <button id="ai-assistant-btn" aria-label="Launch Rocket AI Medical Assistant" class="group relative flex items-center gap-2.5 px-3.5 py-2.5 rounded-full bg-gradient-to-br from-surface-container-high via-surface-container to-surface-container-low border border-primary-container/50 shadow-[0_0_20px_rgba(0,229,255,0.35)] hover:border-primary-container hover:shadow-[0_0_24px_rgba(0,229,255,0.5)] active:scale-[0.96] transition-all cursor-pointer" type="button">
       <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-primary-container/20 border border-primary-container/40 text-primary-container shadow-[0_0_12px_rgba(0,229,255,0.4)]">
-        <span class="material-symbols-outlined text-[20px] transition-transform group-hover:-translate-y-0.5 group-hover:rotate-6">rocket_launch</span>
+        <span class="material-symbols-outlined text-[20px] transition-transform group-hover:-translate-y-0.5 group-hover:rotate-6">smart_toy</span>
         <span class="absolute -bottom-1 -right-0.5 w-2 h-2 rounded-full bg-secondary shadow-[0_0_6px_rgba(125,255,162,1)]"></span>
       </div>
       <div class="flex flex-col items-start pr-1">
         <div class="flex items-center gap-1">
           <span class="font-label-md text-label-md text-primary font-bold tracking-tight">AstroAI</span>
-          <span class="px-1 rounded bg-secondary-container/20 text-secondary font-label-sm text-label-sm font-bold">GROQ</span>
+          <span class="px-1 rounded bg-secondary-container/20 text-secondary font-label-sm text-label-sm font-bold">ONLINE</span>
         </div>
-        <span class="font-label-sm text-label-sm text-on-surface-variant">Health Q&amp;A · Groq</span>
+        <span class="font-label-sm text-label-sm text-on-surface-variant">Instant Medical Q&amp;A</span>
       </div>
     </button>
   </aside>
@@ -1315,6 +1322,6 @@
   </div>
 
   <script src="js/oscilloscope.js"></script>
-  <script src="js/app.js?v=health-chat-7"></script>
+  <script src="js/app.js?v=astroai-interactive-3"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 @echo off
 title ASTRA - Decoupled Frontend Client
+cd /d "%~dp0"
 echo ===============================================================================
 echo     ASTRA: AeroHealth Orbital Frontend Client
 echo     Decoupled Web Client (Port 3000)

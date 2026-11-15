@@ -1,5 +1,6 @@
 @echo off
 title ASTRA - Autonomous Spaceflight Health Intelligence System
+cd /d "%~dp0"
 echo ===============================================================================
 echo     ASTRA: Autonomous Spaceflight Telemetry, Risk Analytics & Emergency Response
 echo     Offline-First Deep-Space Aerospace Medical Intelligence Platform
